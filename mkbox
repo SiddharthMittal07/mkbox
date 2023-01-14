@@ -1,0 +1,50 @@
+#!/bin/bash
+
+function usage {
+	echo "$0 [-f (subl|cherry)] dir_name"
+	exit 
+}
+
+function main {
+	format="subl"
+	dir_name=""
+	check $@;
+
+	mkdir $dir_name;
+	cd $dir_name;
+	mkdir exfils;
+	mkdir exploits;
+	mkdir nmap;
+	mkdir logs;
+	touch users_enum;
+	touch passwd_enum;
+	touch creds;
+	touch hashes;
+	if [[ $format == "cherry" ]]; then
+		cp /opt/mkbox/templates/notes.ctb .;
+	else
+		cp /opt/mkbox/templates/notes.md .;
+	fi
+	cd ..;
+}
+
+function check {
+	while getopts ":f:h" opt; do
+		case "$opt" in
+			f)
+				format=${OPTARG}
+				;;
+			h)
+				usage
+				;;
+		esac
+	done;
+	shift $(expr $OPTIND - 1 )
+
+	while test $# -gt 0; do
+		dir_name=$1;
+		shift
+	done;
+}
+
+main $@
