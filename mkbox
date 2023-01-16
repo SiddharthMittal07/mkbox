@@ -16,6 +16,7 @@ function main {
 	mkdir exploits;
 	mkdir nmap;
 	mkdir logs;
+	mkdir www;
 	touch users_enum;
 	touch passwd_enum;
 	touch creds;
